@@ -1,5 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
-import styled from "styled-components";
+import { Link, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const GoBackBtn = styled(Link)`
   text-decoration: none;
@@ -37,13 +37,13 @@ export const AdditionalInfoTitle = styled.p`
 `;
 
 export const AdditionalInfoItem = styled(NavLink)`
-    text-decoration: none;
-    color: #000;
-    font-weight: 400;
-    &.active{
-        color: #ff7f50;
-    }
-    :hover {
-        color: #ff7f50;
-    }
+  text-decoration: none;
+  color: #000000;
+  font-weight: 400;
+  &.active {
+    color: #ff7f50;
+  }
+  :hover {
+    color: #ff7f50;
+  }
 `;

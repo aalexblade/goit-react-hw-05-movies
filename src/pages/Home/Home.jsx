@@ -1,31 +1,37 @@
-import { getTrendingMovie } from 'services/movie-api';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { HomeWrapper, HomeTitle, MovieList, ListItem } from './Home.styled';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { getTrendingFilms } from 'services/api';
+import { Link, useLocation } from 'react-router-dom';
+import { Container } from 'components/Container/Container';
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
+  const [trendingFilms, setTrendingFilms] = useState([]);
+
   const location = useLocation();
 
   useEffect(() => {
-    getTrendingMovie().then(setMovies);
+    try {
+      getTrendingFilms().then(res => setTrendingFilms([...res.results]));
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   return (
-    <HomeWrapper>
-      <HomeTitle>Trending today</HomeTitle>
-      <MovieList>
-        {movies.map(({ id, title }) => {
+    <Container>
+      <h1>Trending Films</h1>
+      <ul>
+        {trendingFilms.map(film => {
           return (
-            <li key={id}>
-              <ListItem state={{ from: location }} to={`/movies/${id}`}>
-                {title}
-              </ListItem>
+            <li key={film.id}>
+              <Link to={`movies/${film.id}`} state={{ from: location }}>
+                {film.title}
+              </Link>
             </li>
           );
         })}
-      </MovieList>
-    </HomeWrapper>
+      </ul>
+    </Container>
   );
 };
 

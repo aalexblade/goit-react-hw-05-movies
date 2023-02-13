@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CastWrapper = styled.ul`
   display: flex;
@@ -13,7 +13,6 @@ export const CastImg = styled.img`
   width: 200px;
   height: auto;
 `;
-
 
 export const CastItem = styled.li`
   display: flex;
