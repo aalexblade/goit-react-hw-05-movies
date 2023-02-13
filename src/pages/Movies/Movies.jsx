@@ -1,24 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { getSearchMovie } from 'services/movie-api';
-import { MdSearch } from 'react-icons/md';
-import { 
-    FormWrapper,
-    MovieFinderInput,
-    MovieSearchBtn,
-    MovieList,
-    MovieItem
+import {
+  FormWrapper,
+  MovieFinderInput,
+  MovieItem,
+  MovieSearchBtn,
+  MovieList,
 } from './Movies.styled';
-
+import { MdSearch } from 'react-icons/md';
 
 const Movies = () => {
-    const [movieName, setMovieName] = useState('');
-    const [movieList, setMovieList] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const filter = searchParams.get('query') ?? '';
-    const location = useLocation();
+  const [movieName, setMovieName] = useState('');
+  const [movieList, setMovieList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get('query') ?? '';
+  const location = useLocation();
 
-     useEffect(() => {
+  useEffect(() => {
     if (!filter) {
       return;
     }
@@ -26,20 +25,19 @@ const Movies = () => {
     getSearchMovie(filter).then(setMovieList);
   }, [filter]);
 
-    const handlerSubmit = e => {
-        e.preventDefault();
-        
-        setSearchParams({ query: movieName });
-        setMovieName('');
-    };
+  const handlerSubmit = e => {
+    e.preventDefault();
 
-    const getMovieName = e => {
-        const value = e.currentTarget.value;
-        setMovieName(value);
-    };
+    setSearchParams({ query: movieName });
+    setMovieName('');
+  };
 
+  const getMovieName = e => {
+    const value = e.currentTarget.value;
+    setMovieName(value);
+  };
 
-    return (
+  return (
     <>
       <FormWrapper onSubmit={handlerSubmit}>
         <label>
@@ -63,7 +61,7 @@ const Movies = () => {
         })}
       </MovieList>
     </>
-    );
+  );
 };
 
 export default Movies;

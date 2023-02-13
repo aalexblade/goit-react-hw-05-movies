@@ -1,29 +1,28 @@
-import { useEffect, useRef, useState } from 'react'
 import { Outlet, useParams, useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { getMovieById } from 'services/movie-api';
 import { MovieInfo } from 'components/MovieInfo/MovieInfo';
 import {
-    GoBackBtn,
-    MovieDetailsPosition,
-    AdditionalInfoList,
-    AdditionalInfoTitle,
-    AdditionalInfoItem,
+  GoBackBtn,
+  MovieDetailsPosition,
+  AdditionalInfoList,
+  AdditionalInfoTitle,
+  AdditionalInfoItem,
 } from './MovieDetails.styled';
 
 const MovieDetails = () => {
+  const [movieDetails, setMovieDetails] = useState(null);
+  const { movieId } = useParams();
+  const location = useLocation();
 
-    const [movieDetails, setMovieDetails] = useState(null);
-    const { movieId } = useParams();
-    const location = useLocation();
+  useEffect(() => {
+    getMovieById(movieId).then(setMovieDetails);
+  }, [movieId]);
 
-    useEffect(() => {
-        getMovieById(movieId).then(setMovieDetails);
-    }, [movieId]);
-    
-    const currentLocation = useRef(location.state?.from ?? './');
+  const currentLocation = useRef(location.state?.from ?? '/');
 
-    return (
-       <>
+  return (
+    <>
       {movieDetails && (
         <>
           <GoBackBtn to={currentLocation.current}>Go back</GoBackBtn>
@@ -50,6 +49,6 @@ const MovieDetails = () => {
       )}
     </>
   );
- };
+};
 
 export default MovieDetails;

@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getCastById } from "services/movie-api";
-import { CastWrapper, CastItem, CastImg } from './MovieCast.styled'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getCastById } from 'services/movie-api';
+import { CastImg, CastItem, CastWrapper } from './MovieCast.styled';
 
 export const MovieCast = () => {
+  const { movieId } = useParams();
+  const [movieCast, setMovieCast] = useState(null);
 
-    const { movidId } = useParams();
-    const [movieCast, setMovieCast] = useState();
+  useEffect(() => {
+    getCastById(movieId).then(setMovieCast);
+  }, [movieId]);
 
-    useEffect(() => { 
-        getCastById(movidId).then(setMovieCast);
-    }, [movidId]);
-
-    
-    return (
-         <>
+  return (
+    <>
       {movieCast && (
         <CastWrapper>
           {movieCast.map(
